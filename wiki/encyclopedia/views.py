@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from . import util
+
+def index(request):
+    return render(request, "encyclopedia/index.html", {
+        "entries": util.listEntries()
+    })
