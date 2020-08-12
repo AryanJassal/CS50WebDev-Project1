@@ -1,8 +1,10 @@
-{%load static%}
+{% load static %}
 
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
     <head>
-        <tite>{% block title %} {% endblock %}</tite>
+        <title>{% block title %} {% endblock %}</title>
         <link rel="stylesheet" href="{% static 'encyclopedia/styles.css' %}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
@@ -24,7 +26,7 @@
                 </div>
 
                 <div>
-                    Random Page
+                    <a href="{% url 'randomEntry' %}">Random Page</a>
                 </div>
 
                 {% block nav %}
