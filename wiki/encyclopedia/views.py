@@ -18,13 +18,4 @@ def displayEntry(request, title):
     })
 
 def randomPage(request):
-    #entries = util.listEntries()
-
-    #randomInt = random.radint(0, len(entries) - 1)
-    #randomEntry = entries[randomInt] 
-
-    #entryName = util.getEntry(randomEntry)
-
     return displayEntry(request, random.choice(util.listEntries()))
-
-    #return HttpResponseRedirect(displayEntry(), args=[request, "CSS"])
