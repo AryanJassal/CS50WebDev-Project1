@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from markdown2 import Markdown
-from random import choice
+import random
 
 from . import util
 
@@ -17,11 +18,13 @@ def displayEntry(request, title):
     })
 
 def randomPage(request):
-    #entries = util.listEntries()                   #Version2
+    #entries = util.listEntries()
 
-    #randomInt = random.radint(0, len(entries) - 1) #Version2
-    #randomEntry = entries[randomInt]               #Version2
+    #randomInt = random.radint(0, len(entries) - 1)
+    #randomEntry = entries[randomInt] 
 
-    #return util.displayEntry(randomEntry)          #Version2
-    return util.displayEntry(random.choice(util.listEntries()))   #Version1
-    
+    #entryName = util.getEntry(randomEntry)
+
+    return displayEntry(request, random.choice(util.listEntries()))
+
+    #return HttpResponseRedirect(displayEntry(), args=[request, "CSS"])
