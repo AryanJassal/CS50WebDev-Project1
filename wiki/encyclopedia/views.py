@@ -17,10 +17,11 @@ def displayEntry(request, title):
     })
 
 def randomPage(request):
-    a = []
-    for entry in entries:
-        a.append(entry)
+    #entries = util.listEntries()                   #Version2
 
-    randomEntry = random.choice(a)
-    displayEntry(randomEntry)
+    #randomInt = random.radint(0, len(entries) - 1) #Version2
+    #randomEntry = entries[randomInt]               #Version2
+
+    #return util.displayEntry(randomEntry)          #Version2
+    return util.displayEntry(random.choice(util.listEntries()))   #Version1
     
