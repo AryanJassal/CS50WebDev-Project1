@@ -14,7 +14,7 @@ def saveEntry(title, content):
     if default_storage.exists(filename):
         default_storage.delete(filename)
 
-    default_storage.save(filename, contentFile(content))
+    default_storage.save(filename, ContentFile(content))
 
 def getEntry(title):
     try:

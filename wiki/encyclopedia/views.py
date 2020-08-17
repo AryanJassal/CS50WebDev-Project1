@@ -9,6 +9,10 @@ from . import util
 class searchForm(forms.Form):
     q = forms.CharField(label = "", widget = forms.TextInput(attrs={"placeholder": "Search Encyclopedia..."}))
 
+class newEntryForm(forms.Form):
+    title = forms.CharField(label = "", widget = forms.TextInput(attrs={"placeholder": "Title", "class": "form-control col-md-8 col-lg-10"}))
+    content = forms.CharField(label = "", widget = forms.Textarea(attrs={"placeholder": "Enter content in Markdown...", "class": "form-control col-md-8 col-lg-10", "rows": 30}))
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.listEntries(),
@@ -55,3 +59,29 @@ def searchEntries(request):
             "foundResults": False,
             "form": searchForm()
         })
+
+def newPage(request):
+    if request.method == "POST":
+        newPage = newEntryForm(request.POST)
+
+        if newPage.is_valid():
+            title = newPage.cleaned_data["title"]
+            content = newPage.cleaned_data["content"]
+        else:
+            title, content = "", ""
+
+        if util.getEntry(title) == None:
+            util.saveEntry(title, content)
+        else:
+            return render(request, "encyclopedia/newPageError.html", {
+                "form": searchForm()
+            })
+
+        return displayEntry(request, title)
+
+    else:
+        return render(request, "encyclopedia/newPage.html", {
+            "newPageForm": newEntryForm(),
+            "form": searchForm()
+        })
+
