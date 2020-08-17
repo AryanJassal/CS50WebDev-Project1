@@ -73,8 +73,9 @@ def newPage(request):
         if util.getEntry(title) == None:
             util.saveEntry(title, content)
         else:
-            return render(request, "encyclopedia/newPageError.html", {
-                "form": searchForm()
+            return render(request, "encyclopedia/error.html", {
+                "form": searchForm(),
+                "errorText": "Entry with this name already exists."
             })
 
         return displayEntry(request, title)
@@ -85,3 +86,15 @@ def newPage(request):
             "form": searchForm()
         })
 
+def editPage(request):
+    pageContent = util.getEntry(title)
+
+    entry = newEntryForm()
+    entry.fields["title"].initial = title
+    entry.fields["content"].initial = pageContent
+
+    return render(request, "encyclopedia/editPage.html", {
+        "editPage": entry,
+        "title": title,
+        "form": searchForm()
+    })
