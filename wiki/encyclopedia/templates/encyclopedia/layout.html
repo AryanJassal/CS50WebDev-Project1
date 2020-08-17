@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" style="overflow-x: hidden;">
     <head>
         <title>{% block title %} {% endblock %}</title>
         <link rel="stylesheet" href="{% static 'encyclopedia/styles.css' %}">
@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
+            <div class="sidebar col-lg-2 col-md-3" style="padding-left: 30px;">
                 <h2>Wiki</h2>
 
                 <form action="{% url 'searchEntries' %}" method="POST" autocomplete="off">

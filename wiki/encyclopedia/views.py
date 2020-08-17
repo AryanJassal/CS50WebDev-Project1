@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django import forms
-from django.http import HttpResponse
+#from django.http import HttpResponse
 from markdown2 import Markdown
 import random
 
@@ -41,7 +41,8 @@ def searchEntries(request):
         return displayEntry(request, searchString)
 
     elif any(searchString.lower() in s.lower() for s in entries):
-        matches = [s.capitalize() for s in entries if searchString in s.capitalize()]
+        matches = [s for s in entries if searchString.lower() in s.lower()]
+
         return render(request, "encyclopedia/searchResults.html", {
             "matches": matches,
             "foundResults": True,
