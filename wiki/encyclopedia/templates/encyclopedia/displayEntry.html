@@ -2,5 +2,6 @@
 
 {% block body %}
     {{mainBody |safe}}
-    <button class="btn btn-info" href="{% url '/edit'%}">Edit</button>
+
+    <a href="{% url 'editPage' %}" class="btn btn-info">Edit</a>
 {% endblock %}

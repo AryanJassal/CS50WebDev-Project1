@@ -20,10 +20,11 @@ def index(request):
     })
 
 def displayEntry(request, title):
-    title = util.getEntry(title)
-    htmlConverted = Markdown().convert(title)
+    entry = util.getEntry(title)
+    htmlConverted = Markdown().convert(entry)
     return render(request, "encyclopedia/displayEntry.html", {
         "mainBody": htmlConverted,
+        "title": title,
         "form": searchForm()
     })
 
@@ -86,7 +87,7 @@ def newPage(request):
             "form": searchForm()
         })
 
-def editPage(request):
+def editPage(request, title):
     pageContent = util.getEntry(title)
 
     entry = newEntryForm()
