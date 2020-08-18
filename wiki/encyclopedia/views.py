@@ -88,14 +88,25 @@ def newPage(request):
         })
 
 def editPage(request, title):
-    pageContent = util.getEntry(title)
+    if request.method == "POST":
+        form = newEntryForm(request.POST)
 
-    entry = newEntryForm()
-    entry.fields["title"].initial = title
-    entry.fields["content"].initial = pageContent
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content =  form.cleaned_data["content"]
+            util.saveEntry(title, content)
 
-    return render(request, "encyclopedia/editPage.html", {
-        "editPage": entry,
-        "title": title,
-        "form": searchForm()
-    })
+            return displayEntry(request, title)
+
+    else:
+        pageContent = util.getEntry(title)
+
+        entry = newEntryForm()
+        entry.fields["title"].initial = title
+        entry.fields["content"].initial = pageContent
+
+        return render(request, "encyclopedia/editPage.html", {
+            "editPage": entry,
+            "title": title,
+            "form": searchForm()
+        })

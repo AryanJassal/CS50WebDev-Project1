@@ -6,11 +6,11 @@
 
 {% block body %}
 
-    <form action="{% url 'editPage' %}", autocomplete="off">
+    <form action="{% url 'editPage' title %}" method="POST" autocomplete="off">
         {% csrf_token %}
         {{ editPage.as_p }}
         <br>
-        <button href="{{ title }}/edit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 
 {% endblock %}

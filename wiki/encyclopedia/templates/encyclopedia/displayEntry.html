@@ -3,5 +3,5 @@
 {% block body %}
     {{mainBody |safe}}
 
-    <a href="{% url 'editPage' %}" class="btn btn-info">Edit</a>
+    <a href="{% url 'editPage' title %}" class="btn btn-info">Edit</a>
 {% endblock %}
