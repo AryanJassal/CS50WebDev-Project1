@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django import forms
-#from django.http import HttpResponse
 from markdown2 import Markdown
 import random
 
@@ -21,12 +20,19 @@ def index(request):
 
 def displayEntry(request, title):
     entry = util.getEntry(title)
-    htmlConverted = Markdown().convert(entry)
-    return render(request, "encyclopedia/displayEntry.html", {
-        "mainBody": htmlConverted,
-        "title": title,
-        "form": searchForm()
-    })
+
+    if entry == None:
+        return render(request, "encyclopedia/error.html", {
+            "errorText": "The entry doesn't exist. Please check the link or the URL and try again."
+        })
+
+    else:
+        htmlConverted = Markdown().convert(entry)
+        return render(request, "encyclopedia/displayEntry.html", {
+            "mainBody": htmlConverted,
+            "title": title,
+            "form": searchForm()
+        })
 
 def randomPage(request):
     return displayEntry(request, random.choice(util.listEntries()))
@@ -103,6 +109,7 @@ def editPage(request, title):
 
         entry = newEntryForm()
         entry.fields["title"].initial = title
+        entry.fields["title"].widget.attrs["readonly"] = True
         entry.fields["content"].initial = pageContent
 
         return render(request, "encyclopedia/editPage.html", {
